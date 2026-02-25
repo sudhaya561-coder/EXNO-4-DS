@@ -84,6 +84,18 @@ The feature selection techniques used are:
        #df_maxabs.to_csv("BMI_MaxAbsScaled.csv", index=False)
        #df_robust.to_csv("BMI_RobustScaled.csv", index=False)
        print("\nFeature Scaling Completed Successfully.")
+
+       # Import Required Libraries
+       import numpy as np
+       import pandas as pd
+       from sklearn.feature_selection import SelectKBest, chi2, f_classif, RFE, SelectFromModel
+       from sklearn.model_selection import train_test_split
+       from sklearn.ensemble import RandomForestClassifier
+       from sklearn.linear_model import LogisticRegression
+       from sklearn.preprocessing import MinMaxScaler
+from sklearn.metrics import accuracy_score
+
+       
        
 # RESULT:
        # INCLUDE YOUR RESULT HERE
