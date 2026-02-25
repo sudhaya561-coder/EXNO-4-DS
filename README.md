@@ -93,9 +93,93 @@ The feature selection techniques used are:
        from sklearn.ensemble import RandomForestClassifier
        from sklearn.linear_model import LogisticRegression
        from sklearn.preprocessing import MinMaxScaler
-from sklearn.metrics import accuracy_score
+       from sklearn.metrics import accuracy_score
 
-       
+       # Fisher Score Library
+       #from skfeature.function.similarity_based import fisher_score
+       # ------------------------------
+       # Load Dataset
+       # ------------------------------
+       df = pd.read_csv("income.csv")
+       print("Dataset Preview:")
+       print(df.head())
+
+       # ------------------------------
+       # Encode Categorical Variables
+       # ------------------------------
+       categorical_columns = ['JobType', 'EdType', 'maritalstatus', 'occupation',
+                       'relationship', 'race', 'gender', 'nativecountry']
+       df[categorical_columns] = df[categorical_columns].astype('category').apply(lambda x: x.cat.codes)
+       print("Encoded Categorical Columns:")
+       print(df[categorical_columns].head())
+
+       # Encode Target Variable if needed
+       if df['SalStat'].dtype == 'object':
+       df['SalStat'] = df['SalStat'].astype('category').cat.codes
+       print("Encoded Target Variable:")
+       print(df['SalStat'].head())
+
+       # ------------------------------
+       # Separate Features and Target
+       # ------------------------------
+       X = df.drop(columns=['SalStat'])
+       y = df['SalStat']
+       print("\nFeatures and Target separated.")
+       print("Features shape:", X.shape)
+       print("Target shape:", y.shape)
+
+       # ------------------------------
+       # Scale Data for Chi-Square (Non-negative required)
+       # ------------------------------
+       scaler = MinMaxScaler()
+       X_scaled = scaler.fit_transform(X)
+       print(X_scaled[:5])
+
+       # ------------------------------
+       # Filter Method: Chi-Square
+       # ------------------------------
+       selector_chi2 = SelectKBest(score_func=chi2, k=6)
+       selector_chi2.fit(X_scaled, y)
+       selected_features_chi2 = X.columns[selector_chi2.get_support()]
+       print("\nChi-Square Selected:", list(selected_features_chi2))
+
+       # ------------------------------
+       # Filter Method: ANOVA
+       # ------------------------------
+       selector_anova = SelectKBest(score_func=f_classif, k=5)
+       selector_anova.fit(X, y)
+       selected_features_anova = X.columns[selector_anova.get_support()]
+       print("\nANOVA Selected:", list(selected_features_anova))
+
+       # ------------------------------
+       # Wrapper Method: RFE
+       # ------------------------------
+       logreg = LogisticRegression(max_iter=1000)
+       rfe = RFE(estimator=logreg, n_features_to_select=6)
+       rfe.fit(X, y)
+       selected_features_rfe = X.columns[rfe.support_]
+       print("\nRFE Selected:", list(selected_features_rfe))
+
+       # ------------------------------
+       # Embedded Method: SelectFromModel
+       # ------------------------------
+       rf = RandomForestClassifier(n_estimators=100, random_state=42)
+       X_train, X_test, y_train, y_test = train_test_split(
+           X, y, test_size=0.3, random_state=42)
+       rf.fit(X_train, y_train)
+       selector_embedded = SelectFromModel(rf, threshold="mean")
+       selector_embedded.fit(X_train, y_train)
+       selected_features_embedded = X.columns[selector_embedded.get_support()]
+       print("\nEmbedded Method Selected:", list(selected_features_embedded))
+
+       # ------------------------------
+       # Accuracy using Embedded Features
+       # ------------------------------
+       X_train_sel = selector_embedded.transform(X_train)
+       X_test_sel = selector_embedded.transform(X_test)
+       rf.fit(X_train_sel, y_train)
+       y_pred = rf.predict(X_test_sel)
+       print("\nModel Accuracy (Embedded Method):", accuracy_score(y_test, y_pred))      
        
 # RESULT:
        # INCLUDE YOUR RESULT HERE
