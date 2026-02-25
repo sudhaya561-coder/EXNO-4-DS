@@ -179,7 +179,21 @@ The feature selection techniques used are:
        X_test_sel = selector_embedded.transform(X_test)
        rf.fit(X_train_sel, y_train)
        y_pred = rf.predict(X_test_sel)
-       print("\nModel Accuracy (Embedded Method):", accuracy_score(y_test, y_pred))      
+       print("\nModel Accuracy (Embedded Method):", accuracy_score(y_test, y_pred))  
        
+<img width="394" height="207" alt="Screenshot 2026-02-25 184553" src="https://github.com/user-attachments/assets/c200988d-3396-4206-beb8-44e94715756e" />
+
+
+ <img width="440" height="215" alt="Screenshot 2026-02-25 184604" src="https://github.com/user-attachments/assets/f00f44d9-e6fd-4030-8e89-9379d46fe67c" />
+
+ <img width="426" height="226" alt="Screenshot 2026-02-25 184609" src="https://github.com/user-attachments/assets/02094f82-0ed0-4908-a4e2-7e37c78005eb" />
+
+<img width="434" height="187" alt="Screenshot 2026-02-25 184617" src="https://github.com/user-attachments/assets/272a3101-2a37-4601-b902-e31fbda837e0" />
+
+<img width="446" height="107" alt="Screenshot 2026-02-25 184623" src="https://github.com/user-attachments/assets/ea8e1558-48e3-4d64-b051-8d46ea3b361a" />
+
+[merged.pdf](https://github.com/user-attachments/files/25547567/merged.pdf)
+ 
 # RESULT:
-       # INCLUDE YOUR RESULT HERE
+ successfully performed Feature Scaling and Feature Selection process and saved the
+data to a file.
