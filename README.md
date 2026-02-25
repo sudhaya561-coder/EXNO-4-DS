@@ -25,5 +25,65 @@ The feature selection techniques used are:
 
 # CODING AND OUTPUT:
        # INCLUDE YOUR CODING AND OUTPUT SCREENSHOTS HERE
+       # Import Required Libraries
+       import numpy as np
+       import pandas as pd
+       from sklearn.preprocessing import StandardScaler, MinMaxScaler,MaxAbsScaler, RobustScaler
+       # ------------------------------   
+       # Feature Scaling using BMI.csv
+       # ------------------------------
+       
+       # Load Dataset
+       df = pd.read_csv('Bmi.csv')   # Make sure bmi.csv is in the same directory
+       print("Original Dataset:")
+       print(df.head())
+
+       # Handle Missing Values
+       df = df.dropna()
+
+       # ------------------------------
+       # 1. Standard Scaling
+       # ------------------------------
+
+       df_std = df.copy()
+       scaler_std = StandardScaler()
+       df_std[['Height', 'Weight']] = scaler_std.fit_transform(df_std[['Height', 'Weight']])
+       print("\nStandard Scaled Data:")
+       print(df_std.head())
+
+       # ------------------------------
+       # 2. Min-Max Scaling
+       # ------------------------------
+       df_minmax = df.copy()
+       scaler_minmax = MinMaxScaler()
+       df_minmax[['Height', 'Weight']] = scaler_minmax.fit_transform(df_minmax[['Height', 'Weight']])
+       print("\nMin-Max Scaled Data:")
+       print(df_minmax.head())
+
+       # ------------------------------
+       # 3. MaxAbs Scaling
+       # ------------------------------
+       df_maxabs = df.copy()
+       scaler_maxabs = MaxAbsScaler()
+       df_maxabs[['Height', 'Weight']] = scaler_maxabs.fit_transform(df_maxabs[['Height', 'Weight']])
+       print("\nMaxAbs Scaled Data:")
+       print(df_maxabs.head())
+
+       # ------------------------------
+       # 4. Robust Scaling
+       # ------------------------------
+       df_robust = df.copy()
+       scaler_robust = RobustScaler()
+       df_robust[['Height', 'Weight']] = scaler_robust.fit_transform(df_robust[['Height', 'Weight']])
+       print("\nRobust Scaled Data:")
+       print(df_robust.head())
+
+       # Save scaled datasets
+       #df_std.to_csv("BMI_StandardScaled.csv", index=False)
+       #df_minmax.to_csv("BMI_MinMaxScaled.csv", index=False)
+       #df_maxabs.to_csv("BMI_MaxAbsScaled.csv", index=False)
+       #df_robust.to_csv("BMI_RobustScaled.csv", index=False)
+       print("\nFeature Scaling Completed Successfully.")
+       
 # RESULT:
        # INCLUDE YOUR RESULT HERE
