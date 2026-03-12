@@ -24,6 +24,7 @@ The feature selection techniques used are:
 3.Embedded Method
 
 # CODING AND OUTPUT:
+~~~ python
        # INCLUDE YOUR CODING AND OUTPUT SCREENSHOTS HERE
        # Import Required Libraries
        import numpy as np
@@ -179,7 +180,9 @@ The feature selection techniques used are:
        X_test_sel = selector_embedded.transform(X_test)
        rf.fit(X_train_sel, y_train)
        y_pred = rf.predict(X_test_sel)
-       print("\nModel Accuracy (Embedded Method):", accuracy_score(y_test, y_pred))  
+       print("\nModel Accuracy (Embedded Method):", accuracy_score(y_test, y_pred))
+~~~
+# output:
        
 <img width="394" height="207" alt="Screenshot 2026-02-25 184553" src="https://github.com/user-attachments/assets/c200988d-3396-4206-beb8-44e94715756e" />
 
